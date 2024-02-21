@@ -18,14 +18,20 @@
  */
 package de.intranda.goobi.plugins;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
 import org.apache.commons.configuration.HierarchicalConfiguration;
 import org.apache.commons.configuration.SubnodeConfiguration;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.goobi.beans.Process;
 import org.goobi.beans.Step;
@@ -36,6 +42,9 @@ import org.goobi.production.enums.StepReturnValue;
 import org.goobi.production.plugin.interfaces.IStepPluginVersion2;
 
 import de.sub.goobi.config.ConfigPlugins;
+import de.sub.goobi.helper.FacesContextHelper;
+import de.sub.goobi.helper.FilesystemHelper;
+import de.sub.goobi.helper.NIOFileUtils;
 import de.sub.goobi.helper.StorageProvider;
 import de.sub.goobi.helper.VariableReplacer;
 import lombok.Getter;
@@ -62,6 +71,7 @@ public class DisplayContentStepPlugin implements IStepPluginVersion2 {
         this.returnPath = returnPath;
         this.step = step;
         Process process = step.getProzess();
+        VariableReplacer replacer = new VariableReplacer(null, null, process, step);
 
         // read parameters from correct block in configuration file
         SubnodeConfiguration myconfig = ConfigPlugins.getProjectAndStepConfig(title, step);
@@ -69,7 +79,7 @@ public class DisplayContentStepPlugin implements IStepPluginVersion2 {
             // get foldername, get filter
 
             String foldername = hc.getString("@label");
-            Path folderPath = Paths.get(VariableReplacer.simpleReplace(hc.getString("@path"), process));
+            Path folderPath = Paths.get(replacer.replace(hc.getString("@path")));
             String filter = hc.getString("@filter", "");
 
             FolderConfiguration fc = new FolderConfiguration(foldername, folderPath, filter);
@@ -139,4 +149,40 @@ public class DisplayContentStepPlugin implements IStepPluginVersion2 {
         }
         return PluginReturnValue.FINISH;
     }
+
+    /**
+     * get the size of a file that is listed inside of the configured directory
+     * 
+     * @param file name of the file to get the size of
+     * @return size as String in MB, GB or TB
+     */
+    public String getFileSize(String file) {
+        String result = "-";
+        try {
+            long fileSize = StorageProvider.getInstance().getFileSize(Paths.get(file));
+            result = FilesystemHelper.getFileSizeShort(fileSize);
+        } catch (IOException e) {
+            log.error(e);
+        }
+        return result;
+    }
+
+    public void downloadFile(String file) {
+        Path f = Paths.get(file);
+        try (InputStream in = StorageProvider.getInstance().newInputStream(f)) {
+            FacesContext facesContext = FacesContextHelper.getCurrentFacesContext();
+            ExternalContext ec = facesContext.getExternalContext();
+            ec.responseReset();
+            ec.setResponseContentType(NIOFileUtils.getMimeTypeFromFile(f));
+            ec.setResponseHeader("Content-Disposition", "attachment; filename=" + f.getFileName().toString());
+            ec.setResponseContentLength((int) StorageProvider.getInstance().getFileSize(f));
+
+            IOUtils.copy(in, ec.getResponseOutputStream());
+
+            facesContext.responseComplete();
+        } catch (IOException e) {
+            log.error(e);
+        }
+    }
+
 }

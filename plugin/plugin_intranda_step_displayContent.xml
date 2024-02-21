@@ -13,13 +13,13 @@
         <step>*</step>
 
 
-        <folder label="Thesis" path="media" filter=".*pdf" />
+        <folder label="Thesis" path="(folder.media)" filter=".*pdf" />
         
-        <folder label="Plagiatsprüfungsprotokoll" path="media" filter=".*pdf" />
+        <folder label="Plagiatsprüfungsprotokoll" path="(folder.media)" filter=".*pdf" />
         
-        <folder label="Sperrbescheid" path="media" filter=".*pdf" />
+        <folder label="Sperrbescheid" path="{folder.media}" filter=".*pdf" />
         
-        <folder label="Beilagen" path="attachments" />
+        <folder label="Beilagen" path="{folder.attachments}" />
 
 
     </config>
