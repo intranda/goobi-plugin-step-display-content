@@ -10,7 +10,6 @@
     xmlns:jsf="http://xmlns.jcp.org/jsf">
 
 
-
     <intranda:box
         boxType="primary"
         boxPadding="true"
@@ -20,13 +19,12 @@
             <ui:repeat
                 var="folder"
                 value="#{AktuelleSchritteForm.myPlugin.configuredFolder}">
-                <div>
+                <div class="pb-4">
                     <h3>
                         <h:outputText value="#{folder.foldername}" />
                     </h3>
 
-
-                    <table class="table table-bordered">
+                    <table class="table table-bordered table-striped">
 
                         <x:dataList
                             var="file"
@@ -36,35 +34,29 @@
                             rowIndexVar="index">
                             <tr>
                                 <td
-                                    id="fileName_#{index}"
-                                    style="background-color: #f5f5f5;"><a
-                                    jsf:action="#{AktuelleSchritteForm.myPlugin.downloadFile(file.toString())}"> <h:outputText
-                                            value="#{file.fileName}"
-                                            title="#{file.fileName}" />
-
-                                </a></td>
-                                <td style="background-color: #f5f5f5;"><h:outputText
+                                    class="w-75"
+                                    id="fileName_#{index}">
+                                    <a
+                                        jsf:action="#{AktuelleSchritteForm.myPlugin.downloadFile(file.toString())}"> 
+                                        <span class="fa fa-file"></span> 
+                                        <span> 
+                                            <h:outputText
+                                                    value="#{file.fileName}"
+                                                    title="#{file.fileName}" />
+                                        </span>
+                                    </a>
+                                </td>
+                                <td class="w-25">
+                                    <h:outputText
                                         value="#{AktuelleSchritteForm.myPlugin.getFileSize(file.toString())}"
-                                        title="#{AktuelleSchritteForm.myPlugin.getFileSize(file)}" /></td>
-
+                                        title="#{AktuelleSchritteForm.myPlugin.getFileSize(file)}" />
+                                </td>
                             </tr>
                         </x:dataList>
                     </table>
-
-
-
-
-
                 </div>
-
-
             </ui:repeat>
-
-
         </h:form>
     </intranda:box>
-
-
-
 
 </ui:composition>

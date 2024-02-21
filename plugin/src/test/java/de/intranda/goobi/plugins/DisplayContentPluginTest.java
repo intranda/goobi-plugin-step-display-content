@@ -110,6 +110,9 @@ public class DisplayContentPluginTest {
         EasyMock.expect(configurationHelper.useS3()).andReturn(false).anyTimes();
         EasyMock.expect(configurationHelper.isUseProxy()).andReturn(false).anyTimes();
         EasyMock.expect(configurationHelper.getGoobiContentServerTimeOut()).andReturn(60000).anyTimes();
+        EasyMock.expect(configurationHelper.getGoobiFolder()).andReturn(resourcesFolder).anyTimes();
+        EasyMock.expect(configurationHelper.getScriptsFolder()).andReturn(resourcesFolder).anyTimes();
+
         EasyMock.expect(configurationHelper.getMetadataFolder()).andReturn(metadataDirectoryName).anyTimes();
         EasyMock.expect(configurationHelper.getRulesetFolder()).andReturn(resourcesFolder).anyTimes();
         EasyMock.expect(configurationHelper.getProcessImagesMainDirectoryName()).andReturn("00469418X_media").anyTimes();
@@ -120,6 +123,7 @@ public class DisplayContentPluginTest {
 
         PowerMock.mockStatic(VariableReplacer.class);
         EasyMock.expect(VariableReplacer.simpleReplace(EasyMock.anyString(), EasyMock.anyObject())).andReturn("00469418X_media").anyTimes();
+        EasyMock.expect(VariableReplacer.findRegexMatches(EasyMock.anyString(), EasyMock.anyString())).andReturn(Collections.emptyList()).anyTimes();
         PowerMock.replay(VariableReplacer.class);
         prefs = new Prefs();
         prefs.loadPrefs(resourcesFolder + "ruleset.xml");
