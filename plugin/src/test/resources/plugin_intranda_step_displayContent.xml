@@ -11,11 +11,17 @@
         <!-- which projects to use for (can be more then one, otherwise use *) -->
         <project>*</project>
         <step>*</step>
+
+
+        <folder label="Thesis" path="media" filter=".*pdf" />
         
-        <!-- sample parameter -->
-        <value>test</value>
-        <!-- display button to finish the task directly from within the entered plugin -->
-        <allowTaskFinishButtons>true</allowTaskFinishButtons>
+        <folder label="Plagiatsprüfungsprotokoll" path="media" filter=".*pdf" />
+        
+        <folder label="Sperrbescheid" path="media" filter=".*pdf" />
+        
+        <folder label="Beilagen" path="attachments" />
+
+
     </config>
 
 </config_plugin>
