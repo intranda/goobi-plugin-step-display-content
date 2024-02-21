@@ -5,31 +5,31 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:x="http://myfaces.apache.org/tomahawk"
-    xmlns:intranda="http://xmlns.jcp.org/jsf/composite/composites">
+    xmlns:intranda="http://xmlns.jcp.org/jsf/composite/compositesPG">
 
-    <h:form>
 
-        <div class="box box-color lightgrey box-bordered">
 
-            <div class="box-title">
-                <h3>
-                    <i class="fa fa-puzzle-piece"></i>
-                    <h:outputText value="#{msgs.plugin}: #{msgs[('plugin_').concat(AktuelleSchritteForm.myPlugin.title)]}" />
-                </h3>
-            </div>
-
-            <div class="box-content">
-
-                <h:panelGroup id="actionform" styleClass="col-sm-12">
-					<div class="row">
-						<h:form>
-							hello step plugin: #{AktuelleSchritteForm.myPlugin.value}
-						</h:form>
-					</div>
-				</h:panelGroup>
-
-            </div>
+    <intranda:box
+        boxType="primary"
+        boxPadding="true"
+        icon="fa-puzzle-piece"
+        title="#{msgs[('plugin_').concat(AktuelleSchritteForm.myPlugin.title)]}">
+        <h:form>
+        <ui:repeat var="folder" value="#{AktuelleSchritteForm.myPlugin.configuredFolder}">
+        <div>
+            <h:outputText value="#{folder.foldername}" />
+        
+        
         </div>
-    </h:form>
+        
+        
+        </ui:repeat>
+        
+        
+        </h:form>
+    </intranda:box>
+
+
+
 
 </ui:composition>

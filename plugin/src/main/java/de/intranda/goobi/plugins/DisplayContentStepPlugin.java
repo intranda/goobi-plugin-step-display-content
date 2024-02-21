@@ -1,9 +1,3 @@
-package de.intranda.goobi.plugins;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-
 /**
  * This file is part of a plugin for Goobi - a Workflow tool for the support of mass digitization.
  *
@@ -22,7 +16,11 @@ import java.util.ArrayList;
  * Temple Place, Suite 330, Boston, MA 02111-1307 USA
  *
  */
+package de.intranda.goobi.plugins;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -53,17 +51,17 @@ public class DisplayContentStepPlugin implements IStepPluginVersion2 {
     private String title = "intranda_step_displayContent";
     @Getter
     private Step step;
-    private Process process;
 
     private String returnPath;
 
-    private List<FolderConfiguration> configuredFolder = new ArrayList<>();
+    @Getter
+    private transient List<FolderConfiguration> configuredFolder = new ArrayList<>();
 
     @Override
     public void initialize(Step step, String returnPath) {
         this.returnPath = returnPath;
         this.step = step;
-        process = step.getProzess();
+        Process process = step.getProzess();
 
         // read parameters from correct block in configuration file
         SubnodeConfiguration myconfig = ConfigPlugins.getProjectAndStepConfig(title, step);
