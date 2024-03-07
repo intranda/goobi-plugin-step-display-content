@@ -2,9 +2,9 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>io.goobi.workflow.plugin</groupId>
-    <artifactId>plugin-step-displayContent</artifactId>
+    <artifactId>plugin-step-display-content</artifactId>
     <version>24.03-SNAPSHOT</version>
   </parent>
-  <artifactId>plugin-step-displayContent-base</artifactId>
+  <artifactId>plugin-step-display-content-base</artifactId>
   <packaging>jar</packaging>
 </project>
