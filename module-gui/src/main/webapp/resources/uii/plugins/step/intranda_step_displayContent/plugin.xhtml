@@ -4,7 +4,6 @@
     xmlns:composite="http://java.sun.com/jsf/composite"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:x="http://myfaces.apache.org/tomahawk"
     xmlns:intranda="http://xmlns.jcp.org/jsf/composite/compositesPG"
     xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
     xmlns:jsf="http://xmlns.jcp.org/jsf">
@@ -26,7 +25,7 @@
 
                     <table class="table table-bordered table-striped">
 
-                        <x:dataList
+                        <ui:repeat
                             var="file"
                             value="#{folder.files}"
                             styleClass="table table-bordered"
@@ -36,7 +35,7 @@
                                 <td
                                     class="w-75"
                                     id="fileName_#{index}">
-                                    <a
+                                    <button
                                         jsf:action="#{AktuelleSchritteForm.myPlugin.downloadFile(file.toString())}"> 
                                         <span class="fa fa-file"></span> 
                                         <span> 
@@ -44,7 +43,7 @@
                                                     value="#{file.fileName}"
                                                     title="#{file.fileName}" />
                                         </span>
-                                    </a>
+                                    </button>
                                 </td>
                                 <td class="w-25">
                                     <h:outputText
@@ -52,7 +51,7 @@
                                         title="#{AktuelleSchritteForm.myPlugin.getFileSize(file)}" />
                                 </td>
                             </tr>
-                        </x:dataList>
+                        </ui:repeat>
                     </table>
                 </div>
             </ui:repeat>
