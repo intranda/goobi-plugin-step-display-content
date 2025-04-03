@@ -4,7 +4,7 @@
     xmlns:composite="http://java.sun.com/jsf/composite"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:intranda="http://xmlns.jcp.org/jsf/composite/compositesPG"
+    xmlns:intranda="http://xmlns.jcp.org/jsf/composite/composites"
     xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
     xmlns:jsf="http://xmlns.jcp.org/jsf">
 
@@ -36,9 +36,9 @@
                                     class="w-75"
                                     id="fileName_#{index}">
                                     <button
-                                        jsf:action="#{AktuelleSchritteForm.myPlugin.downloadFile(file.toString())}"> 
-                                        <span class="fa fa-file"></span> 
-                                        <span> 
+                                        jsf:action="#{AktuelleSchritteForm.myPlugin.downloadFile(file.toString())}">
+                                        <span class="fa fa-file"></span>
+                                        <span>
                                             <h:outputText
                                                     value="#{file.fileName}"
                                                     title="#{file.fileName}" />
