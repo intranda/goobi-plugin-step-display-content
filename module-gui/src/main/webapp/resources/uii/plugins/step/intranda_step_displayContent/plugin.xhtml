@@ -6,13 +6,14 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:intranda="http://xmlns.jcp.org/jsf/composite/composites"
     xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:util="http://goobi.io/util"
     xmlns:jsf="http://xmlns.jcp.org/jsf">
 
 
     <intranda:box
         boxType="primary"
         boxPadding="true"
-        icon="fa-puzzle-piece"
+        icon="puzzle"
         title="#{msgs[('plugin_').concat(AktuelleSchritteForm.myPlugin.title)]}">
         <h:form>
             <ui:repeat
@@ -37,7 +38,7 @@
                                     id="fileName_#{index}">
                                     <button
                                         jsf:action="#{AktuelleSchritteForm.myPlugin.downloadFile(file.toString())}">
-                                        <span class="fa fa-file"></span>
+                                        <util:icon icon="file" />
                                         <span>
                                             <h:outputText
                                                     value="#{file.fileName}"
