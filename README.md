@@ -5,7 +5,7 @@
   <img src="https://goobi.io/logo_goobi_workflow.png" align="right" alt="Plugin for Goobi workflow" width="240" height="132" hspace="20" vspace="10">
 </picture>
 
-This Step plugin for Goobi workflow allows to show the content of configurable folders in the filesystem to the user inside of an accepted task.
+This Step plugin for Goobi workflow allows to show the content of configurable folders in the filesystem inside of an accepted task.
 
 This is a plugin for Goobi workflow, the open source workflow tracking software for digitisation projects. More information about Goobi workflow is available under https://goobi.io. If you want to get in touch with the user community simply go to https://community.goobi.io.
 
